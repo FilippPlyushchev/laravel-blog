@@ -2,7 +2,7 @@
 @section('title', 'Добавить пост')
 
 @section('content')
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <h3>Добавить пост</h3>
         <div class="form-group">

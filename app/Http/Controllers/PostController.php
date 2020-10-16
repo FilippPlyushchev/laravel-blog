@@ -6,26 +6,28 @@ use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param Request $req
+     * @param Request $request
      * @return Application|Factory|View|Response
      */
-    public function index(Request $req)
+    public function index(Request $request)
     {
-        if($req->search){
+        if($request->search){
             $posts = DB::table('posts')
                 ->join('users', 'users.id', '=', 'posts.author_id')
                 ->select('posts.*', 'users.name')
-                ->orWhere('title', 'like', '%'.$req->search.'%')
-                ->orWhere('users.name', 'like', '%'.$req->search.'%')
+                ->orWhere('title', 'like', '%'.$request->search.'%')
+                ->orWhere('users.name', 'like', '%'.$request->search.'%')
                 ->orderBy('posts.created_at', 'desc')
                 ->get();
         }else{
@@ -53,11 +55,25 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return void
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post->title = $request->title;
+        $post->short_title = Str::length($request->title) > 30 ? Str::substr($request->title, 0, 30) . '...' : $request->title;
+        $post->description = $request->description;
+        $post->author_id = auth()->user()->id;
+
+        if($request->img){
+            $path = \Storage::putFile('public', $request->img);
+            $url = \Storage::url($path);
+            $post->img = $url;
+        }
+
+        $post->save();
+
+         return redirect()->route('post.index')->with('success', 'Пост успешно добавлен');
     }
 
     /**
