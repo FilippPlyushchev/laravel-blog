@@ -92,11 +92,12 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return void
+     * @return Application|Factory|View|void
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -104,11 +105,25 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Application|Factory|View|void
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->title = $request->title;
+        $post->short_title = Str::length($request->title) > 30 ? Str::substr($request->title, 0, 30) . '...' : $request->title;
+        $post->description = $request->description;
+
+        if($request->img){
+            $path = \Storage::putFile('public', $request->img);
+            $url = \Storage::url($path);
+            $post->img = $url;
+        }
+
+        $post->update();
+
+        return redirect()->route('post.show',['id' => $post->post_id])->with('success', 'Пост успешно изменен');
     }
 
     /**

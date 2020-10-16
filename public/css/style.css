@@ -17,3 +17,10 @@ nav {
     height: 500px;
 }
 
+.car-btn {
+    display: flex;
+}
+
+.car-btn a{
+    margin-right: 10px;
+}
