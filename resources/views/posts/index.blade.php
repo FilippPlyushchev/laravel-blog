@@ -2,8 +2,6 @@
 @section('title', 'Блог')
 
 @section('content')
-    <div class="container">
-
         @if(isset($_GET['search']))
             @if(count($posts) > 0)
                 <h2>Результаты поиска по запросу <?= $_GET['search'] ?></h2>
@@ -18,8 +16,12 @@
             @foreach($posts as $post)
                 <div class="col-6">
                     <div class="card">
-                        <div class="card-header">{{ $post->short_title }}</div>
-                        <div class="card-body">{{ $post->name }}</div>
+                        <div class="card-header"><h4>{{ $post->short_title }}</h4></div>
+                        <div class="card-body">
+                            <div class="card-img" style="background-image: url({{ $post->img ?? asset('img/no-image.svg') }})"></div>
+                            <div class="card-author">Автор: {{ $post->name }}</div>
+                            <a href="" class="btn btn-outline-primary">Посмотреть пост</a>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -27,5 +29,4 @@
         @if(!isset($_GET['search']))
             {{ $posts->links() }}
         @endif
-    </div>
 @endsection

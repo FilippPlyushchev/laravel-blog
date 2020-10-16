@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -32,17 +33,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ url('/create') }}">Создать пост</a>
+                            <a class="nav-link" href="{{ url('post/create') }}">Создать пост</a>
                         </li>
                     </ul>
-
+                    <form class="form-inline my-2 my-lg-0" action="{{ route('post.index') }}">
+                        <input class="form-control mr-sm-2" name="search" type="search" placeholder="Найти пост..." aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    </form>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        <form class="form-inline my-2 my-lg-0" action="{{ route('post.index') }}">
-                            <input class="form-control mr-sm-2" name="search" type="search" placeholder="Найти пост..." aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
-                        </form>
+
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
@@ -62,7 +63,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Выйти') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -76,11 +77,9 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            <div class="container">
-                @yield('content')
-            </div>
-        </main>
+        <div class="container">
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>

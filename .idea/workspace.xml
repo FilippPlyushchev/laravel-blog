@@ -27,13 +27,15 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/posts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/css" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\noolk\Downloads\OpenServer\domains\laravel-blog\public\css" />
+      <recent name="C:\Users\noolk\Downloads\OpenServer\domains\laravel-blog\public\img" />
       <recent name="C:\Users\noolk\Downloads\OpenServer\domains\laravel-blog\resources\views\posts" />
     </key>
   </component>
@@ -45,7 +47,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602870764501</updated>
-      <workItem from="1602870765528" duration="10454000" />
+      <workItem from="1602870765528" duration="11610000" />
     </task>
     <servers />
   </component>

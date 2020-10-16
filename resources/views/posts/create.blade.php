@@ -6,13 +6,16 @@
         @csrf
         <h3>Добавить пост</h3>
         <div class="form-group">
-            <input type="text" class="form-group" name="title">
+            <label for="title">Название поста</label>
+            <input type="text" class="form-control" name="title" id="title">
+
         </div>
         <div class="form-group">
-            <textarea name="description" id="description" class="form-group"></textarea>
+            <label for="description">Содержимое поста</label><textarea name="description" id="description" rows="10" class="form-control"></textarea>
         </div>
         <div class="form-group">
-            <input type="file">
+            <label for="img">Изображение</label>
+            <input type="file" class="form-control-file" name="img" id="img">
         </div>
 
         <input type="submit" value="Добавить пост" class="btn btn-outline-success">
