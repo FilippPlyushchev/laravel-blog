@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -54,10 +55,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param PostRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $post = new Post();
         $post->title = $request->title;
@@ -103,11 +104,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param PostRequest $request
      * @param int $id
      * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
 

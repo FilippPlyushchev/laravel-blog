@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Блог')
+@section('title', $post->title)
 
 @section('content')
     <div class="row">
@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <div class="card-img card-img__max"
                          style="background-image: url({{ $post->img ?? asset('img/no-image.svg') }})"></div>
+                    <div class="card-description">{{ $post->description }}</div>
                     <div class="card-author">Автор: {{ $post->name }}</div>
                     <div class="card-date">Пост создан: {{ $post->created_at->diffForHumans() }}</div>
                     <div class="car-btn">

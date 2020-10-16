@@ -2,7 +2,7 @@ nav {
     margin-bottom: 15px;
 }
 
-.cardm .card-author, .card-date{
+.card, .card-author, .card-date, .card-description{
     margin-bottom: 10px;
 }
 

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Добавить пост')
+@section('title', 'Редактировать пост')
 
 @section('content')
     <form action="{{ route('post.update', ['post' => $post->post_id]) }}" method="post" enctype="multipart/form-data">
