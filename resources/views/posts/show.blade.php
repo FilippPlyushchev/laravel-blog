@@ -13,8 +13,8 @@
                     <div class="card-date">Пост создан: {{ $post->created_at->diffForHumans() }}</div>
                     <div class="car-btn">
                         <a href="{{ route('post.index') }}" class="btn btn-outline-primary">На главную</a>
-                        <a href="{{ route('post.edit', ['id' => $post->post_id]) }}" class="btn btn-outline-success">Редактировать</a>
-                        <form action="{{ route('post.destroy', ['id' => $post->post_id]) }}" method="post" onsubmit="return confirm('Точно удалить пост ?');">
+                        <a href="{{ route('post.edit', ['post' => $post->post_id]) }}" class="btn btn-outline-success">Редактировать</a>
+                        <form action="{{ route('post.destroy', ['post' => $post->post_id]) }}" method="post" onsubmit="return confirm('Точно удалить пост ?');">
                             @csrf
                             @method('delete')
                             <input type="submit" class="btn btn-outline-danger" value="Удалить">

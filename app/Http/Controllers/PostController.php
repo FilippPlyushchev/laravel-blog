@@ -123,7 +123,7 @@ class PostController extends Controller
 
         $post->update();
 
-        return redirect()->route('post.show', ['id' => $post->post_id])->with('success', 'Пост успешно изменен');
+        return redirect()->route('post.show', ['post' => $post->post_id])->with('success', 'Пост успешно изменен');
     }
 
     /**
