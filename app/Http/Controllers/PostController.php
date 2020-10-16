@@ -123,17 +123,20 @@ class PostController extends Controller
 
         $post->update();
 
-        return redirect()->route('post.show',['id' => $post->post_id])->with('success', 'Пост успешно изменен');
+        return redirect()->route('post.show', ['id' => $post->post_id])->with('success', 'Пост успешно изменен');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Application|Factory|View|void
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect()->route('post.index')->with('success', 'Пост успешно удален');
     }
 }

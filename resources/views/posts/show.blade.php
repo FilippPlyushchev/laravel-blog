@@ -14,7 +14,11 @@
                     <div class="car-btn">
                         <a href="{{ route('post.index') }}" class="btn btn-outline-primary">На главную</a>
                         <a href="{{ route('post.edit', ['id' => $post->post_id]) }}" class="btn btn-outline-success">Редактировать</a>
-                        <a href="{{ route('post.destroy', ['id' => $post->post_id]) }}" class="btn btn-outline-danger">Удалить</a>
+                        <form action="{{ route('post.destroy', ['id' => $post->post_id]) }}" method="post" onsubmit="return confirm('Точно удалить пост ?');">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" class="btn btn-outline-danger" value="Удалить">
+                        </form>
                     </div>
                 </div>
             </div>
