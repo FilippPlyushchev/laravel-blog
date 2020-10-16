@@ -80,11 +80,12 @@ class PostController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return void
+     * @return Application|Factory|View|void
      */
     public function show($id)
     {
-        //
+        $post = Post::join('users', 'users.id', '=', 'posts.author_id')->find($id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -103,7 +104,7 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return void
+     * @return Application|Factory|View|void
      */
     public function update(Request $request, $id)
     {
@@ -114,7 +115,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return void
+     * @return Application|Factory|View|void
      */
     public function destroy($id)
     {
