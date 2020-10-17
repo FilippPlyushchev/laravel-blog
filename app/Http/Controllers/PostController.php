@@ -15,11 +15,16 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View|RedirectResponse
      */
     public function index(Request $request)
     {
@@ -81,11 +86,14 @@ class PostController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return Application|Factory|View|void
+     * @return Application|Factory|View|RedirectResponse
      */
     public function show($id)
     {
         $post = Post::join('users', 'users.id', '=', 'posts.author_id')->find($id);
+        if(!$post){
+            return redirect()->route('post.index')->withErrors('Такого поста не существует!');
+        }
         return view('posts.show', ['post' => $post]);
     }
 
@@ -93,11 +101,16 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Application|Factory|View|void
+     * @return Application|Factory|View|RedirectResponse
      */
     public function edit($id)
     {
         $post = Post::find($id);
+
+        if(!$post || $post->author_id != \Auth::user()->id){
+            return redirect()->route('post.index')->withErrors('Вы не можете редактировать данный пост!');
+        }
+
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -111,6 +124,10 @@ class PostController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
+
+        if(!$post || $post->author_id != \Auth::user()->id){
+            return redirect()->route('post.index')->withErrors('Вы не можете редактировать данный пост!');
+        }
 
         $post->title = $request->title;
         $post->short_title = Str::length($request->title) > 30 ? Str::substr($request->title, 0, 30) . '...' : $request->title;
@@ -136,6 +153,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+
+        if(!$post || $post->author_id != \Auth::user()->id){
+            return redirect()->route('post.index')->withErrors('Вы не можете удалить данный пост!');
+        }
+
         $post->delete();
 
         return redirect()->route('post.index')->with('success', 'Пост успешно удален');
